@@ -35,7 +35,7 @@ function science_and_concept_map_mail($key, &$message, $params)
 			}
 
 			$message['headers'] = $params['science_and_concept_map_proposal_received']['headers'];
-			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been received', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map project proposal has been received', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -97,7 +97,7 @@ FOSSEE, IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_disapproved']['headers'];
-			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been disapproved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map project proposal has been disapproved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -122,7 +122,7 @@ Project Title: ' . $proposal_data->project_title . '
 Reason for rejection: ' . $proposal_data->dissapproval_reason . '
 
 
-Thank you for participating in the SOUL science and concept map Project. You are welcome to submit a new proposal.
+Thank you for participating in the SOUL science and concept map project. You are welcome to submit a new proposal.
 
 Best Wishes,
 
@@ -162,7 +162,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_approved']['headers'];
-			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been approved', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map project proposal has been approved', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -171,7 +171,7 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-Your soul science and concept map Project proposal with the following details has been approved:
+Your soul science and concept map project proposal with the following details has been approved:
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
 Email: ' . $user_data->mail . '
@@ -221,7 +221,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_completed']['headers'];
-			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been completed', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map project proposal has been completed', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -239,7 +239,6 @@ City: ' . $proposal_data->city . '
 State: ' . $proposal_data->state . '
 Country: ' . $proposal_data->country . '
 Title of Category  : ' . $proposal_data->category . '
-
 Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
@@ -247,7 +246,7 @@ Project Title: ' . $proposal_data->project_title . '
 Kindly access this link to download the same.
 https://soul.fossee.in/science-and-concept-map-project/completed-projects
 
-Thank you for participating in the SOUL science and concept map Project. You are welcome to propose a new science and concept map project.
+Thank you for participating in the SOUL science and concept map project. You are welcome to propose a new science and concept map project.
 
 Best Wishes,
 
@@ -286,7 +285,7 @@ FOSSEE,IIT Bombay', array(
 				$project_guide_email_id = $proposal_data->project_guide_email_id;
 			}
 			$message['headers'] = $params['science_and_concept_map_proposal_deleted']['headers'];
-			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map Project proposal has been deleted', array(
+			$message['subject'] = t('[!site_name][Science and Concept Map Project] Your soul science and concept map project proposal has been deleted', array(
 				'!site_name' => variable_get('site_name', '')
 			), array(
 				'language' => $language->language
@@ -295,7 +294,7 @@ FOSSEE,IIT Bombay', array(
 				'body' => t('
 Dear !user_name,
 
-We regret to inform you that your soul science and concept map Project proposal with following details have been
+We regret to inform you that your soul science and concept map project proposal with following details have been
 deleted.
 
 Full Name: ' . $proposal_data->name_title . ' ' . $proposal_data->contributor_name . '
@@ -309,7 +308,7 @@ Project Guide: ' . $project_guide_name . '
 Project Guide Email: ' . $project_guide_email_id . '
 Project Title: ' . $proposal_data->project_title . '
 
-Thank you for participating in the SOUL science and concept map Project. You are welcome to submit a new proposal.
+Thank you for participating in the SOUL science and concept map project. You are welcome to submit a new proposal.
 
 Best Wishes,
 
@@ -395,7 +394,7 @@ Experiment Title : ' . $experiment_data->title . '
 Solution number : ' . $params['solution_disapproved']['solution_number'] . '
 Caption : ' . $params['solution_disapproved']['solution_caption'] . '
 
-Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/science-and-concept-map-project/science-and-concept-map-project/submission-guidelines
+Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/science-and-concept-map-project/submission-guidelines
 
 Best Wishes,
 
@@ -490,7 +489,7 @@ Dear !user_name,
 
 You have uploaded following dependency files : ' . $dependency_files . '
 
-Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/soul-science-and-concept-map-project/science-and-concept-map-project/submission-guidelines
+Please ensure that ALL the codes follow guidelines at https://soul.fossee.in/soul-science-and-concept-map-project/submission-guidelines
 
 Best Wishes,
 
