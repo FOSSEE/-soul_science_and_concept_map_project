@@ -304,12 +304,12 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		)
 	);
 	$form['second_software'] = array(
-		'#type' => 'textfield',
-		'#title' => t('Enter Second Software (If applicable)'),
-		'#size' => 250,
+		'#type' => 'select',
+		'#title' => t('Select Second Software (If applicable)'),
+		'#options' => _soul_list_of_second_software_version(),
 		'#attributes' => array(
-			'placeholder' => t('Enter Second Software')
-		),
+                'placeholder' => t('Select Second Software')
+            ),
 	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',
