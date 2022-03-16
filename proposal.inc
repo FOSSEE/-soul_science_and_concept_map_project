@@ -303,7 +303,14 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 			)
 		)
 	);
-
+	$form['second_software'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Enter Second Software (If applicable)'),
+		'#size' => 250,
+		'#attributes' => array(
+			'placeholder' => t('Enter Second Software')
+		),
+	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Project Title'),
@@ -591,8 +598,6 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 	{
 		$other_software_version_no = 'None';
 	}
-
-	
 	$result = "INSERT INTO {soul_science_and_concept_map_proposal} 
     (
     uid, 
@@ -617,6 +622,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     software_version,
     software_version_no,
     other_software_version_no,
+    second_software,
     directory_name,
     approval_status,
     is_completed, 
@@ -650,6 +656,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     :software_version,
     :software_version_no,
     :other_software_version_no,
+    :second_software,
     :directory_name,
     :approval_status,
     :is_completed, 
@@ -683,6 +690,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":software_version" =>$v['software_version'],		
 		":software_version_no" =>$software_version_no,
 		":other_software_version_no" => $other_software_version_no,
+		":second_software" => $v['second_software'],
 		":directory_name" => $directory_name,
 		":approval_status" => 0,
 		":is_completed" => 0,
