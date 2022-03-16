@@ -775,7 +775,9 @@ function _df_list_of_departments()
 }
 function _soul_list_of_second_software_version()
 {
-    $second_software = array();
+    $second_software = array(
+		0 => '-Select-'
+	);
     $query = db_select('soul_science_and_concept_map_second_software');
     $query->fields('soul_science_and_concept_map_second_software');
     $second_software_list = $query->execute();

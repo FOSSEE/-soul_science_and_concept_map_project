@@ -306,10 +306,7 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 	$form['second_software'] = array(
 		'#type' => 'select',
 		'#title' => t('Select Second Software (If applicable)'),
-		'#options' => _soul_list_of_second_software_version(),
-		'#attributes' => array(
-                'placeholder' => t('Select Second Software')
-            ),
+		'#options' => _soul_list_of_second_software_version()
 	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',
