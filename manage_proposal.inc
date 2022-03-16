@@ -160,6 +160,14 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	else{
 		$software_versions = $software_version_data->software_versions;
 	}
+	if ($proposal_data->second_software == "NULL" || $proposal_data->second_software == "")
+	{
+		$second_software = "Not Entered";
+	} //$proposal_data->city == NULL
+	else
+	{
+		$second_software = $proposal_data->second_software;
+	}
 	$form['contributor_name'] = array(
 		'#type' => 'item',
 		'#markup' => l($proposal_data->name_title . ' ' . $proposal_data->contributor_name, 'user/' . $proposal_data->uid),
@@ -239,6 +247,11 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->other_software_version_no,
 		'#title' => t('Other Software Version No')
+	);
+	$form['second_software'] = array(
+		'#type' => 'item',
+		'#markup' => $second_software,
+		'#title' => t('Second Software Version')
 	);
 	$form['project_guide_name'] = array(
 		'#type' => 'item',
@@ -489,6 +502,14 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	{
 		$project_guide_email_id = $proposal_data->project_guide_email_id;
 	}
+	if ($proposal_data->second_software == "NULL" || $proposal_data->second_software == "")
+	{
+		$second_software = "Not Entered";
+	} //$proposal_data->city == NULL
+	else
+	{
+		$second_software = $proposal_data->second_software;
+	}
 	$query = db_select('soul_science_and_concept_map_software_version');
 	$query->fields('soul_science_and_concept_map_software_version');
 	$query->condition('id', $proposal_data->software_version);
@@ -584,6 +605,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->other_software_version_no,
 		'#title' => t('Other Software Version No')
+	);
+	$form['second_software'] = array(
+		'#type' => 'item',
+		'#markup' => $second_software,
+		'#title' => t('Second Software Version')
 	);
 	$form['project_title'] = array(
 		'#type' => 'item',
@@ -769,6 +795,14 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	else{
 		$software_versions = $software_version_data->software_versions;
 	}
+	if ($proposal_data->second_software == "NULL" || $proposal_data->second_software == "")
+	{
+		$second_software = "Not Entered";
+	} //$proposal_data->city == NULL
+	else
+	{
+		$second_software = $proposal_data->second_software;
+	}
 	$user_data = user_load($proposal_data->uid);
 	$form['name_title'] = array(
 		'#type' => 'select',
@@ -939,6 +973,11 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->other_software_version_no,
 		'#title' => t('Other Software Version No')
+	);
+	$form['second_software'] = array(
+		'#type' => 'item',
+		'#markup' => $second_software,
+		'#title' => t('Second Software Version')
 	);
 	$form['project_title'] = array(
 		'#type' => 'textarea',

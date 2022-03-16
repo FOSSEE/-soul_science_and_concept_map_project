@@ -773,7 +773,20 @@ function _df_list_of_departments()
 	} //$department_list_data = $department_list->fetchObject()
 	return $department;
 }
-
+function _soul_list_of_second_software_version()
+{
+    $second_software = array(
+		0 => '-Select-'
+	);
+    $query = db_select('soul_science_and_concept_map_second_software');
+    $query->fields('soul_science_and_concept_map_second_software');
+    $second_software_list = $query->execute();
+    while ($second_software_list_data = $second_software_list->fetchObject())
+      {
+        $second_software[$second_software_list_data->second_software] = $second_software_list_data->second_software;
+      }
+    return $second_software;
+}
 function _soul_list_of_category()
   {
     $category = array();
