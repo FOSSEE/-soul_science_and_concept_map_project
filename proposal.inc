@@ -309,17 +309,18 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#options' => _soul_list_of_second_software_version()
 	);
 	$form['project_title'] = array(
-		'#type' => 'textarea',
+		'#type' => 'textfield',
 		'#title' => t('Project Title'),
-		'#size' => 250,
-		'#description' => t('Minimum character limit is 10 and Maximum character limit is 250'),
+		'#size' => 100,
+		'#maxlength' => 100,
+		'#description' => t('Minimum character limit is 10 and Maximum character limit is 100'),
 		'#attributes' => array(
 			'placeholder' => t('Enter Project Title')
 		),
 		'#required' => TRUE
 	);
 	$form['description'] = array(
-		'#type' => 'textarea',
+		'#type' => 'texarea',
 		'#title' => t('Project Description'),
 		'#size' => 250,
 		'#attributes' => array(
