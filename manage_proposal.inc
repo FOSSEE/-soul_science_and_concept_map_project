@@ -184,7 +184,7 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->contact_no,
 	);
-	$form['month_year_of_degree'] = array(
+	/*$form['month_year_of_degree'] = array(
 		'#type' => 'date_popup',
 		'#title' => t('Month and year of award of degree'),
 		'#date_label_position' => '',
@@ -197,16 +197,26 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 			'maxDate' => 0
 		),
 		'#disabled' => TRUE
-	);
+	);*/
 	$form['university'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->university,
 		'#title' => t('University/Institute')
 	);
+	$form['department'] = array(
+		'#type' => 'item',
+		'#title' => t('Department/Branch'),
+		'#markup' => $proposal_data->department,
+	);
 	$form['country'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->country,
 		'#title' => t('Country')
+	);
+	$form['other_country'] = array(
+		'#type' => 'item',
+		'#title' => t('Other than India'),
+		'#markup' => $proposal_data->other_country,
 	);
 	$form['all_state'] = array(
 		'#type' => 'item',
@@ -222,6 +232,27 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->pincode,
 		'#title' => t('Pincode/Postal code')
+	);
+
+	$form['project_guide_name'] = array(
+		'#type' => 'item',
+		'#title' => t('Name of the faculty member of your Institution, if any, who helped you with this project '),
+		'#markup' => $proposal_data->project_guide_name
+	);
+	$form['project_guide_department'] = array(
+		'#type' => 'item',
+		'#title' => t('Department of the faculty member of your Institution, if any, who helped you with this project '),
+		'#markup' => $proposal_data->project_guide_department
+	);
+	$form['project_guide_email_id'] = array(
+		'#type' => 'item',
+		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
+		'#markup' =>$proposal_data->project_guide_email_id
+	);
+	$form['options'] = array(
+		'#type' => 'item',
+		'#title' => t('How did you come to know about the science and concept map project'),
+		'#markup' =>$proposal_data->options
 	);
 	$form['category'] = array(
 		'#type' => 'item',
@@ -272,6 +303,11 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $proposal_data->description,
 		'#title' => t('Description of the science and concept map Project')
+	);
+	$form['reference'] = array(
+		'#type' => 'textfield',
+		'#markup' => $proposal_data->reference,
+		'#title' => t('Reference')
 	);
 	if (($proposal_data->abstractfilepath != "") && ($proposal_data->abstractfilepath != 'NULL'))
 	{
@@ -551,6 +587,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#markup' => $proposal_data->university,
 		'#title' => t('University/Institute')
 	);
+	$form['department'] = array(
+		'#type' => 'item',
+		'#title' => t('Department/Branch'),
+		'#markup' => $proposal_data->department,
+	);
 	$form['country'] = array(
 		'#type' => 'item',
 		'#markup' => $country,
@@ -560,6 +601,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $state,
 		'#title' => t('State')
+	);
+	$form['category'] = array(
+		'#type' => 'select',
+		'#markup' => $category,
+		'#title' => t('Select Category'),
 	);
 	$form['city'] = array(
 		'#type' => 'item',
@@ -575,6 +621,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('Project guide'),
 		'#markup' => $project_guide_name
+	);
+	$form['project_guide_department'] = array(
+		'#type' => 'item',
+		'#title' => t('Department of the faculty member of your Institution, if any, who helped you with this project '),
+		'#markup' => $proposal_data->project_guide_department
 	);
 	$form['project_guide_email_id'] = array(
 		'#type' => 'item',
@@ -611,10 +662,25 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#markup' => $second_software,
 		'#title' => t('Second Software Version')
 	);
+	$form['project_guide_name'] = array(
+		'#type' => 'item',
+		'#title' => t('Project guide'),
+		'#markup' => $project_guide_name
+	);
+	$form['project_guide_email_id'] = array(
+		'#type' => 'item',
+		'#title' => t('Project guide email'),
+		'#markup' => $project_guide_email_id
+	);
 	$form['project_title'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->project_title,
 		'#title' => t('Title of the science and concept map Project')
+	);
+	$form['description'] = array(
+		'#type' => 'item',
+		'#markup' => $proposal_data->description,
+		'#title' => t('Description of the science and concept map Project')
 	);
 	/************************** reference link filter *******************/
 	$url = '~(?:(https?)://([^\s<]+)|(www\.[^\s<]+?\.[^\s<]+))(?<![\.,:])~i';
@@ -830,7 +896,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#title' => t('Email'),
 		'#markup' => $user_data->mail
 	);
-	$form['month_year_of_degree'] = array(
+	/*$form['month_year_of_degree'] = array(
 		'#type' => 'date_popup',
 		'#title' => t('Month and year of award of degree'),
 		'#date_label_position' => '',
@@ -843,7 +909,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 			'maxDate' => 0
 		),
 		'#disabled' => TRUE
-	);
+	);*/
 	$form['university'] = array(
 		'#type' => 'textfield',
 		'#title' => t('University/Institute'),
@@ -950,43 +1016,94 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		)
 	);
 	$form['category'] = array(
-		'#type' => 'item',
-		'#markup' => $proposal_data->category,
-		'#title' => t('Category')
+		'#type' => 'select',
+		'#title' => t('Category'),
+		'#default_value' => $proposal_data->category,
+		'#required' => TRUE,
+		'#options' => _soul_list_of_category()
+		/*'#markup' => $proposal_data->category,*/
+		
 	);
 	$form['sub_category'] = array(
-		'#type' => 'item',
-		'#markup' => $proposal_data->sub_category,
-		'#title' => t('Sub Category')
+		'#type' => 'select',
+		'#default_value' => $proposal_data->sub_category,
+		'#title' => t('Sub Category'),
+		'#required' => TRUE,
+		'#options' => _soul_list_of_sub_category(),
+		'#states' => array(
+			'visible' => array(
+				':input[name="category"]' => array(
+					'value' => '3D Modeling Project'
+				)
+			)
+		)
 	);
+	$software_version_options =  _soul_list_of_software_version();
 	$form['software_version'] = array(
-		'#type' => 'item',
-		'#markup' => $software_versions,
-		'#title' => t('Software Version')
+		'#type' => 'select',
+		'default_value' => $software_versions,
+		'#title' => t('Software Version'),
+		'#options' => $software_version_options,
+		'#required' => TRUE,
+		'#ajax' => array(
+        	'callback' => 'ajax_solver_used_callback',
+        ),
 	);
+	$software_version_id = isset($form_state['values']['software_version']) ? $form_state['values']['software_version'] : key($software_version_options);
 	$form['software_version_no'] = array(
-		'#type' => 'item',
-		'#markup' => $proposal_data->software_version_no,
-		'#title' => t('Software Version No')
+		'#type' => 'select',
+		'#default_value' => $proposal_data->software_version_no,
+		'#title' => t('Software Version No'),
+		'#options' => _soul_list_of_software_version_details($software_version_id),
+		
+		'#prefix' => '<div id="ajax-solver-replace">',
+		'#suffix' => '</div>',
+		'#required' => TRUE,
+		'#tree' => TRUE,
+		'#validated' => TRUE
 	);
 	$form['other_software_version_no'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->other_software_version_no,
-		'#title' => t('Other Software Version No')
+		'#default_value' => $proposal_data->other_software_version_no,
+		'#title' => t('Other Software Version No'),
+		'#size' => 100,
+		'#attributes' => array(
+			'placeholder' => t('Enter your answer')
+		),
+		'#states' => array(
+			'visible' => array(
+				':input[name="software_version_no"]' => array(
+					'value' => 'Another'
+				)
+			)
+		)
 	);
 	$form['second_software'] = array(
 		'#type' => 'item',
-		'#markup' => $second_software,
-		'#title' => t('Second Software Version')
+		'#default_value' => $second_software,
+		'#title' => t('Second Software Version'),
+		'#options' => _soul_list_of_second_software_version()
 	);
 	$form['project_title'] = array(
-		'#type' => 'textarea',
+		'#type' => 'textfield',
 		'#title' => t('Title of the science and concept map Project'),
-		'#size' => 300,
-		'#maxlength' => 350,
+		'#size' => 30,
+		'#maxlength' => 100,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->project_title
 	);
+	$form['description'] = array(
+		'#type' => 'texarea',
+		'#default_value' => $proposal_data->description,
+		'#title' => t('Project Description'),
+		'#size' => 250,
+		'#attributes' => array(
+			'placeholder' => t('Enter Project Description')
+		),
+		'#description' => t('Minimum character limit is 250 and Maximum character limit is 700'),
+		'#required' => TRUE
+	);
+	// SAMPLE FILE//
 	$form['reference'] = array(
 		'#type' => 'textarea',
 		'#title' => t('Reference'),
@@ -995,6 +1112,26 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 			'placeholder' => 'Links of must be provided....'
 		),
 		'#default_value' => $proposal_data->reference
+	);
+	$form['date_of_proposal'] = array(
+		'#type' => 'date_popup',
+		'#title' => t('Date of Proposal'),
+		'#default_value' => date("Y-m-d H:i:s"),
+		'#date_format' => 'd M Y',
+		'#disabled' => TRUE,
+		'#date_label_position' => ''
+	);
+	$form['expected_date_of_completion'] = array(
+		'#type' => 'date_popup',
+		'#title' => t('Expected Date of Completion'),
+		'#date_label_position' => '',
+		'#description' => '',
+		'#default_value' => '',
+		'#date_format' => 'd-M-Y',
+		
+		'#date_year_range' => '0 : +1',
+		'#datepicker_options' => array('maxDate' => 31, 'minDate' => 0),
+		'#required' => TRUE
 	);
 	$form['delete_proposal'] = array(
 		'#type' => 'checkbox',
