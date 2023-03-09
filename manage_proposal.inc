@@ -611,6 +611,7 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#markup' => $city,
 		'#title' => t('City')
+		ashvdjas
 	);
 	$form['pincode'] = array(
 		'#type' => 'item',
