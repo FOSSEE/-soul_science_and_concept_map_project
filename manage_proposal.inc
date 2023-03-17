@@ -163,6 +163,7 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	if ($proposal_data->second_software == "NULL" || $proposal_data->second_software == "")
 	{
 		$second_software = "Not Entered";
+
 	} //$proposal_data->city == NULL
 	else
 	{
@@ -251,7 +252,7 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	);
 	$form['options'] = array(
 		'#type' => 'item',
-		'#title' => t('How did you come to know about the science and concept map project'),
+		'#title' => t('How did you come to know about the Science and Concept Map project'),
 		'#markup' =>$proposal_data->options
 	);
 	$form['category'] = array(
@@ -297,15 +298,15 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	$form['project_title'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->project_title,
-		'#title' => t('Title of the science and concept map Project')
+		'#title' => t('Title of the Science and Concept Map Project')
 	);
 	$form['description'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->description,
-		'#title' => t('Description of the science and concept map Project')
+		'#title' => t('Description of the Science and Concept Map Project')
 	);
 	$form['reference'] = array(
-		'#type' => 'textfield',
+		'#type' => 'item',
 		'#markup' => $proposal_data->reference,
 		'#title' => t('Reference')
 	);
@@ -330,7 +331,7 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	}
 	$form['approval'] = array(
 		'#type' => 'radios',
-		'#title' => t('soul science-and-concept-map proposal'),
+		'#title' => t('Soul Science and Concept Map Proposal'),
 		'#options' => array(
 			'1' => 'Approve',
 			'2' => 'Disapprove'
@@ -604,7 +605,7 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	);
 	$form['category'] = array(
 		'#type' => 'item',
-		'#markup' => $category,
+		'#markup' => $proposal_data->category,
 		'#title' => t('Select Category'),
 	);
 	$form['city'] = array(
@@ -680,7 +681,7 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	);
 	$form['description'] = array(
 		'#type' => 'item',
-		'#markup' => $proposal_data->description,
+		'#markup' => $description,
 		'#title' => t('Description of the science and concept map Project')
 	);
 	/************************** reference link filter *******************/
@@ -914,7 +915,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	$form['university'] = array(
 		'#type' => 'textfield',
 		'#title' => t('University/Institute'),
-		'#size' => 200,
+		'#size' => 50,
 		'#maxlength' => 200,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->university
@@ -931,7 +932,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#tree' => TRUE,
 		'#validated' => TRUE
 	);
-	$form['other_country'] = array(
+	/*$form['other_country'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Other than India'),
 		'#size' => 100,
@@ -946,8 +947,8 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 				)
 			)
 		)
-	);
-	$form['other_state'] = array(
+	);*/
+	/*$form['other_state'] = array(
 		'#type' => 'textfield',
 		'#title' => t('State other than India'),
 		'#size' => 100,
@@ -962,7 +963,7 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 				)
 			)
 		)
-	);
+	);*/
 	$form['other_city'] = array(
 		'#type' => 'textfield',
 		'#title' => t('City other than India'),
@@ -1025,76 +1026,76 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		/*'#markup' => $proposal_data->category,*/
 		
 	);
-	$form['sub_category'] = array(
-		'#type' => 'select',
-		'#default_value' => $proposal_data->sub_category,
-		'#title' => t('Sub Category'),
-		'#required' => TRUE,
-		'#options' => _soul_list_of_sub_category(),
-		'#states' => array(
-			'visible' => array(
-				':input[name="category"]' => array(
-					'value' => '3D Modeling Project'
-				)
-			)
-		)
-	);
-	$software_version_options =  _soul_list_of_software_version();
-	$form['software_version'] = array(
-		'#type' => 'select',
-		'default_value' => $software_versions,
-		'#title' => t('Software Version'),
-		'#options' => $software_version_options,
-		'#required' => TRUE,
-		'#ajax' => array(
-        	'callback' => 'ajax_solver_used_callback',
-        ),
-	);
-	$software_version_id = isset($form_state['values']['software_version']) ? $form_state['values']['software_version'] : key($software_version_options);
-	$form['software_version_no'] = array(
-		'#type' => 'select',
-		'#default_value' => $proposal_data->software_version_no,
-		'#title' => t('Software Version No'),
-		'#options' => _soul_list_of_software_version_details($software_version_id),
+	// $form['sub_category'] = array(
+	// 	'#type' => 'select',
+	// 	'#default_value' => $proposal_data->sub_category,
+	// 	'#title' => t('Sub Category'),
+	// 	'#required' => TRUE,
+	// 	'#options' => _soul_list_of_sub_category(),
+	// 	'#states' => array(
+	// 		'visible' => array(
+	// 			':input[name="category"]' => array(
+	// 				'value' => '3D Modeling Project'
+	// 			)
+	// 		)
+	// 	)
+	// );
+	// $software_version_options =  _soul_list_of_software_version();
+	// $form['software_version'] = array(
+	// 	'#type' => 'select',
+	// 	'default_value' => $software_versions,
+	// 	'#title' => t('Software Version'),
+	// 	'#options' => $software_version_options,
+	// 	'#required' => TRUE,
+	// 	'#ajax' => array(
+    //     	'callback' => 'ajax_solver_used_callback',
+    //     ),
+	// );
+	// $software_version_id = isset($form_state['values']['software_version']) ? $form_state['values']['software_version'] : key($software_version_options);
+	// $form['software_version_no'] = array(
+	// 	'#type' => 'select',
+	// 	'#default_value' => $proposal_data->software_version_no,
+	// 	'#title' => t('Software Version No'),
+	// 	'#options' => _soul_list_of_software_version_details($software_version_id),
 		
-		'#prefix' => '<div id="ajax-solver-replace">',
-		'#suffix' => '</div>',
-		'#required' => TRUE,
-		'#tree' => TRUE,
-		'#validated' => TRUE
-	);
-	$form['other_software_version_no'] = array(
-		'#type' => 'item',
-		'#default_value' => $proposal_data->other_software_version_no,
-		'#title' => t('Other Software Version No'),
-		'#size' => 100,
-		'#attributes' => array(
-			'placeholder' => t('Enter your answer')
-		),
-		'#states' => array(
-			'visible' => array(
-				':input[name="software_version_no"]' => array(
-					'value' => 'Another'
-				)
-			)
-		)
-	);
-	$form['second_software'] = array(
-		'#type' => 'item',
-		'#default_value' => $second_software,
-		'#title' => t('Second Software Version'),
-		'#options' => _soul_list_of_second_software_version()
-	);
+	// 	'#prefix' => '<div id="ajax-solver-replace">',
+	// 	'#suffix' => '</div>',
+	// 	'#required' => TRUE,
+	// 	'#tree' => TRUE,
+	// 	'#validated' => TRUE
+	// );
+	// /*$form['other_software_version_no'] = array(
+	// 	'#type' => 'item',
+	// 	'#default_value' => $proposal_data->other_software_version_no,
+	// 	'#title' => t('Other Software Version No'),
+	// 	'#size' => 100,
+	// 	'#attributes' => array(
+	// 		'placeholder' => t('Enter your answer')
+	// 	),
+	// 	'#states' => array(
+	// 		'visible' => array(
+	// 			':input[name="software_version_no"]' => array(
+	// 				'value' => 'Another'
+	// 			)
+	// 		)
+	// 	)
+	// );*/
+	// $form['second_software'] = array(
+	// 	'#type' => 'item',
+	// 	'#default_value' => $second_software,
+	// 	'#title' => t('Second Software Version'),
+	// 	'#options' => _soul_list_of_second_software_version()
+	// );
 	$form['project_title'] = array(
 		'#type' => 'textfield',
-		'#title' => t('Title of the science and concept map Project'),
-		'#size' => 30,
+		'#title' => t('Title of the Science and Concept Map Project'),
+		'#size' => 75,
 		'#maxlength' => 100,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->project_title
 	);
 	$form['description'] = array(
-		'#type' => 'texarea',
+		'#type' => 'textarea',
 		'#default_value' => $proposal_data->description,
 		'#title' => t('Project Description'),
 		'#size' => 250,
@@ -1106,9 +1107,9 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	);
 	// SAMPLE FILE//
 	$form['reference'] = array(
-		'#type' => 'textarea',
+		'#type' => 'textfield',
 		'#title' => t('Reference'),
-		'#size' => 10000,
+		'#size' => 20,
 		'#attributes' => array(
 			'placeholder' => 'Links of must be provided....'
 		),
@@ -1122,18 +1123,18 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#disabled' => TRUE,
 		'#date_label_position' => ''
 	);
-	$form['expected_date_of_completion'] = array(
-		'#type' => 'date_popup',
-		'#title' => t('Expected Date of Completion'),
-		'#date_label_position' => '',
-		'#description' => '',
-		'#default_value' => '',
-		'#date_format' => 'd-M-Y',
+	// $form['expected_date_of_completion'] = array(
+	// 	'#type' => 'date_popup',
+	// 	'#title' => t('Expected Date of Completion'),
+	// 	'#date_label_position' => '',
+	// 	'#description' => '',
+	// 	'#default_value' => '',
+	// 	'#date_format' => 'd-M-Y',
 		
-		'#date_year_range' => '0 : +1',
-		'#datepicker_options' => array('maxDate' => 31, 'minDate' => 0),
-		'#required' => TRUE
-	);
+	// 	'#date_year_range' => '0 : +1',
+	// 	'#datepicker_options' => array('maxDate' => 31, 'minDate' => 0),
+	// 	'#required' => TRUE
+	// );
 	$form['delete_proposal'] = array(
 		'#type' => 'checkbox',
 		'#title' => t('Delete Proposal')
@@ -1262,6 +1263,7 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 				pincode=:pincode,
 				state=:state,
 				project_title=:project_title,
+				description=:description,
 				reference=:reference,
 				directory_name=:directory_name ,
 				abstractfilepath=:abstractfilepath
@@ -1274,6 +1276,7 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 		':pincode' => $v['pincode'],
 		':state' => $v['all_state'],
 		':project_title' => $project_title,
+		':description' => $v['description'],
 		':reference' => $v['reference'],
 		':directory_name' => $directory_name,
 		':abstractfilepath' => $abstractfilepath,
