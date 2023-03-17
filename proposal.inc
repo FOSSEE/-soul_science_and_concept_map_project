@@ -257,7 +257,6 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#type' => 'select',
 		'#title' => t('Select Sub Category for 3D Modeling Project'),
 		'#options' => _soul_list_of_sub_category(),
-		'#default_value' => none,
 		'#states' => array(
 			'visible' => array(
 				':input[name="category"]' => array(
@@ -309,9 +308,10 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#options' => _soul_list_of_second_software_version()
 	);
 	$form['project_title'] = array(
-		'#type' => 'textarea',
+		'#type' => 'textfield',
 		'#title' => t('Project Title'),
-		'#size' => 250,
+		'#size' => 100,
+		'#maxlength' => 250,
 		'#description' => t('Minimum character limit is 10 and Maximum character limit is 250'),
 		'#attributes' => array(
 			'placeholder' => t('Enter Project Title')
@@ -576,7 +576,6 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 	$options = $v['options'];
 	$category = $v['category'];
 	$software_version_no =$v['software_version_no'];
-	$month_year_of_degree = $v['month_year_of_degree'];
 	$directory_name = _df_dir_name($project_title, $proposar_name);
 	if ($category == '3D Modeling Project')
 	{
@@ -682,8 +681,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":options" =>$v['options'],
 		":category" => $category,
 		":sub_category" => $sub_category,
-		":project_title" => _df_sentence_case($v['project_title']),
-		":description" => _df_sentence_case($v['description']),
+		":project_title" => $v['project_title'],
+		":description" => $v['description'],
 		":software_version" =>$v['software_version'],		
 		":software_version_no" =>$software_version_no,
 		":other_software_version_no" => $other_software_version_no,
