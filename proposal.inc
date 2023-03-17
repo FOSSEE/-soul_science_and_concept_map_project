@@ -257,7 +257,6 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#type' => 'select',
 		'#title' => t('Select Sub Category for 3D Modeling Project'),
 		'#options' => _soul_list_of_sub_category(),
-		'#default_value' => none,
 		'#states' => array(
 			'visible' => array(
 				':input[name="category"]' => array(
@@ -577,7 +576,6 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 	$options = $v['options'];
 	$category = $v['category'];
 	$software_version_no =$v['software_version_no'];
-	$month_year_of_degree = $v['month_year_of_degree'];
 	$directory_name = _df_dir_name($project_title, $proposar_name);
 	if ($category == '3D Modeling Project')
 	{
