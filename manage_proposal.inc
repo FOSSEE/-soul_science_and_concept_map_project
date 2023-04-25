@@ -888,8 +888,8 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	$form['contributor_name'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Name of the Proposer'),
-		'#size' => 30,
-		'#maxlength' => 50,
+		'#size' => 100,
+		'#maxlength' => 500,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->contributor_name
 	);
