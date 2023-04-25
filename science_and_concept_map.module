@@ -446,28 +446,6 @@ function science_and_concept_map_menu()
 		),
 		'file' => 'pdf/cert_new.inc'
 	);
-	$items['science-and-concept-map-project/certificates-custom'] = array(
-		'title' => 'List of science and concept map Custom Certificates',
-		'description' => 'List of science and concept map Custom Certificates',
-		'page callback' => '_list_science_and_concept_map_custom_certificates',
-		'access arguments' => array(
-			'list science and concept map custom certificates'
-		),
-		'file' => 'pdf/list_mentor_certificates.inc'
-	);
-	$items['science-and-concept-map-project/certificates-custom/pdf'] = array(
-		'title' => 'Download Certificate',
-		'description' => 'Download Certificate',
-		'page callback' => 'drupal_get_form',
-		'page arguments' => array(
-			'generate_pdf'
-		),
-		'type' => MENU_CALLBACK,
-		'access arguments' => array(
-			'generate pdf'
-		),
-		'file' => 'pdf/mentor_cert_pdf.inc'
-	);
 	$items['science-and-concept-map-project/certificates/verify'] = array(
 		"title" => "Certificate Verification",
 		"page callback" => "verify_certificates",
