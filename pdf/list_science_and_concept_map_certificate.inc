@@ -9,7 +9,7 @@ function _list_science_and_concept_map_certificates()
 	if ($exist_id){
 	if ($exist_id->id) {
 		if ($exist_id->id < 3) {
-			drupal_set_message('<strong>You need to propose a flowsheet <a href="https://dwsim.fossee.in/flowsheeting-project/proposal">Flowsheet Proposal</a></strong> or if you have already proposed then your flowsheet is under reviewing process', 'status');
+			drupal_set_message('<strong>You need to propose a project <a href="https://soul.fossee.in/science-and-concept-map-project/proposal">Project Proposal</a></strong> or if you have already proposed then your project is under reviewing process', 'status');
 			return '';
 		} //$exist_id->id < 3
 		else {
@@ -48,7 +48,7 @@ function _list_science_and_concept_map_certificates()
 		}
 	} //$exist_id->id
 	else {
-		drupal_set_message('<strong>You need to propose a flowsheet <a href="https://dwsim.fossee.in/flowsheeting-project/proposal">Flowsheet Proposal</a></strong> or if you have already proposed then your flowsheet is under reviewing process', 'status');
+		drupal_set_message('<strong>You need to propose a project <a href="https://soul.fossee.in/science-and-concept-map-project/proposal">Project Proposal</a></strong> or if you have already proposed then your Project is under reviewing process', 'status');
 		$page_content = "<span style='color:red;'> No certificate available </span>";
 		return $page_content;
 	}
