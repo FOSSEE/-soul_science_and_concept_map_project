@@ -442,7 +442,7 @@ function science_and_concept_map_menu()
 		),
 		'type' => MENU_CALLBACK,
 		'access arguments' => array(
-			'generate pdf'
+			'generate certificate'
 		),
 		'file' => 'pdf/cert_new.inc'
 	);
@@ -524,6 +524,11 @@ function science_and_concept_map_permission()
 			"description" => t("list the mentor certificates"),
 			'restrict access' => TRUE
 		),
+		"generate certificate" => array(
+			"title" => t('allow user to download certificates'),
+			"description" => t('Download Certificate'),
+			'restrict access' => TRUE
+	    ),
 		"verify certificates" => array(
 			"title" => t("verify the certificates"),
 			"description" => t("verify the certificates"),
