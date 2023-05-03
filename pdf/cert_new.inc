@@ -32,49 +32,58 @@ function generate_pdf()
 	$path   = drupal_get_path('module', 'science_and_concept_map');
 	$pdf->SetFont('times', 'BI', 25);
 	$pdf->Ln(35);
-	$pdf->SetFont('times', 'I' , 12);
+	$pdf->SetFont('times', 'I' , 16);
 	$pdf->SetTextColor(0, 0, 0);
 	$pdf->Cell(240, 20, 'This e-certificate is being awarded to', '0', '1', 'C');
-	$pdf->Ln(-6);
-	$pdf->SetFont('times', 'BI', 12);
+	$pdf->Ln(-7);
+	$pdf->SetFont('times', 'BI', 16);
 	$pdf->SetTextColor(4,118,208);
-	$pdf->Cell(240, 8, utf8_decode($data3->contributor_name), '0', '1', 'C');
-	$pdf->Ln(0);
+	$pdf->MultiCell(240, 8, utf8_decode($data3->contributor_name), '0', 'C');
+	$pdf->Ln(-1);
 	
 	if (strtolower($data3->department) != "others") {
 		$pdf->SetTextColor(0, 0, 0);
-		$pdf->SetFont('times', 'I' , 12);
+		$pdf->SetFont('times', 'I' , 16);
 		$pdf->Cell(240, 8, 'from ', '0', '1', 'C');
-		$pdf->SetFont('times', 'BI', 12);
+		$pdf->Ln(-1);
+		$pdf->SetFont('times', 'BI', 16);
 		$pdf->SetTextColor(4,118,208);
 		$pdf->MultiCell(240, 8, utf8_decode($data3->university) , '0','C');
-		$pdf->Ln(0);
-		$pdf->SetFont('times', 'I', 12);
+		$pdf->Ln(-1);
+		if (strpos($data3->contributor_name,',')!==false){
+			$pdf->SetFont('times', 'I', 16);
 		$pdf->SetTextColor(0, 0, 0);
-		$pdf->Cell(240, 8,'The candidate has successfully completed', '0', '1', 'C');
-		$pdf->Ln(0);
-		$pdf->SetFont('times', 'I', 12);
-		$pdf->Cell(240, 8, 'Science and Concept Map Project under the Soul category.', '0', '1', 'C');
-		$pdf->SetFont('times', 'I', 12);
+		$pdf->Cell(240, 8,'The team has successfully completed the Science and Concept Map Project ', '0', '1', 'C');
+		}
+		else{
+		$pdf->SetFont('times', 'I', 16);
 		$pdf->SetTextColor(0, 0, 0);
-		$pdf->MultiCell(240, 8,'His/Her topic was '.'"'. utf8_decode($data3->project_title).'"', '0', 'C');
-		$pdf->Ln(0);
+		$pdf->Cell(240, 8,'The candidate has successfully completed the Science and Concept Map Project', '0', '1', 'C');
+		}
+		$pdf->Ln(-1);
+		// $pdf->SetFont('times', 'I', 16);
+		// $pdf->Cell(240, 8, 'the Science and Concept Map Project ', '0', '1', 'C');
+		$pdf->Cell(240, 8,'under SOUL (Science OpenSource Software for Teaching Learning).', '0', '1', 'C');
+		$pdf->Ln(-1);
+		$pdf->SetFont('times', 'I', 16);
+		$pdf->SetTextColor(0, 0, 0);
+		$pdf->MultiCell(240, 8,'The topic was '.'"'. utf8_decode($data3->project_title).'"', '0', 'C');
+		// $pdf->Ln(-1);
 		$pdf->Cell(240, 4, 'The work done is available at', '0', '1', 'C');
-		
 		$pdf->Ln(4);
-		$pdf->SetX(117);
+		$pdf->SetX(110);
 		$pdf->SetFont('', 'U');
 		$pdf->SetTextColor(139, 69, 19);
 		$pdf->write(0, 'https://soul.fossee.in/', 'https://soul.fossee.in/');
 		$pdf->SetTextColor(0, 0, 0);
 		$pdf->Ln(10);
-		$pdf->SetFont('Arial', 'I', 12);
+		$pdf->SetFont('times', 'BI', 16);
 		$pdf->Cell(240, 8, ' Prof. Kannan Moudgalya', '0', '1', 'C');
-		$pdf->Ln(-3);
-		$pdf->SetFont('Arial', 'I', 8);
+		$pdf->Ln(-2);
+		$pdf->SetFont('Arial', 'I', 10);
 		$pdf->Cell(240, 8, ' Principal Investigator - FOSSEE', '0', '1', 'C');
 		$pdf->Ln(-4);
-		$pdf->SetFont('Arial', 'I', 8);
+		$pdf->SetFont('Arial', 'I', 10);
 		$pdf->Cell(240, 8, ' (Free/Libre and Open Source Software for Education)', '0', '1', 'C');
 		$pdf->Ln(-4);
 		$pdf->Cell(240, 8, 'IIT Bombay', '0', '1', 'C');
@@ -97,7 +106,7 @@ function generate_pdf()
 		$pdf->SetTextColor(0, 0, 0);
 		$pdf->Cell(240, 8, 'from ' . $data3->university . ' has successfully', '0', '1', 'C');
 		$pdf->Ln(0);
-		$pdf->Cell(240, 8, 'completed Internship under DWSIM Flowsheeting Project', '0', '1', 'C');
+		$pdf->Cell(240, 8, 'completed Science and Concept Map Project', '0', '1', 'C');
 		$pdf->Ln(0);
 	}
 	$proposal_get_id = 0;

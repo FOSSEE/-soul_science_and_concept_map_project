@@ -8,11 +8,6 @@ function _list_science_and_concept_map_certificates()
 	$exist_id = $query_id->fetchObject();
 	if ($exist_id){
 	if ($exist_id->id) {
-		if ($exist_id->id < 3) {
-			drupal_set_message('<strong>You need to propose a science and concept map project <a href="https://soul.fossee.in/science-and-concept-map-project/proposal">Proposal</a></strong> or if you have already proposed then your project is under reviewing process', 'status');
-			return '';
-		} //$exist_id->id < 3
-		else {
 			$search_rows = array();
 			global $output;
 			$output = '';
@@ -44,7 +39,6 @@ function _list_science_and_concept_map_certificates()
 				echo ("Error");
 				return '';
 			}
-		}
 		}
 	} //$exist_id->id
 	else {
