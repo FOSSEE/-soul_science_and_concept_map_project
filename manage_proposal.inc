@@ -250,6 +250,11 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
 		'#markup' =>$proposal_data->project_guide_email_id
 	);
+	$form['project_guide_university'] = array(
+		'#type' => 'item',
+		'#title' => t('University name of the faculty member of your Institution, if any, who helped you with this project'),
+		'#markup' =>$proposal_data->project_guide_university
+	);
 	$form['options'] = array(
 		'#type' => 'item',
 		'#title' => t('How did you come to know about the Science and Concept Map project'),
@@ -294,6 +299,11 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('Project guide email'),
 		'#markup' => $project_guide_email_id
+	);
+	$form['project_guide_university'] = array(
+		'#type' => 'item',
+		'#title' => t('Project guide university'),
+		'#markup' => $project_guide_university
 	);
 	$form['project_title'] = array(
 		'#type' => 'item',
@@ -539,6 +549,14 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	{
 		$project_guide_email_id = $proposal_data->project_guide_email_id;
 	}
+	if ($proposal_data->project_guide_university == "NULL" || $proposal_data->project_guide_university == "")
+	{
+		$project_guide_university = "Not Entered";
+	} //$proposal_data->project_guide_university == NULL
+	else
+	{
+		$project_guide_university = $proposal_data->project_guide_university;
+	}
 	if ($proposal_data->second_software == "NULL" || $proposal_data->second_software == "")
 	{
 		$second_software = "Not Entered";
@@ -633,6 +651,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#type' => 'item',
 		'#title' => t('Project guide email'),
 		'#markup' => $project_guide_email_id
+	);
+	$form['project_guide_university'] = array(
+		'#type' => 'item',
+		'#title' => t('University of the faculty member of your Institution, if any, who helped you with this project '),
+		'#markup' => $proposal_data->project_guide_university
 	);
 	$form['category'] = array(
 		'#type' => 'item',
@@ -1026,6 +1049,44 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		/*'#markup' => $proposal_data->category,*/
 		
 	);
+	$form['project_guide_name'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Name of the faculty member of your Institution, if any, who helped you with this project '),
+		'#size' => 250,
+		'#default_value' => $proposal_data->project_guide_name,
+		'#attributes' => array(
+			'placeholder' => t('Enter full name of faculty member')
+		),
+		'#maxlength' => 250
+	);
+	$form['project_guide_department'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Department of the faculty member of your Institution, if any, who helped you with this project '),
+		'#size' => 250,
+		'#default_value' => $proposal_data->project_guide_department,
+		'#attributes' => array(
+			'placeholder' => t('Enter department name of faculty member')
+		),
+		'#maxlength' => 250
+	);
+	$form['project_guide_email_id'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
+		'#size' => 30,
+		'#default_value' => $proposal_data->project_guide_email_id,
+		'#attributes' => array(
+			'placeholder' => t('Enter Email id of the faculty member')
+		),
+	);
+	$form['project_guide_university'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Enter University name of faculty member'),
+		'#default_value' => $proposal_data->project_guide_university,
+		'#size' => 80,
+		'#maxlength' => 200,
+		
+		
+	);
 	// $form['sub_category'] = array(
 	// 	'#type' => 'select',
 	// 	'#default_value' => $proposal_data->sub_category,
@@ -1261,6 +1322,10 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 				university=:university,
 				city=:city,
 				pincode=:pincode,
+				project_guide_name=:project_guide_name,
+    			project_guide_department=:project_guide_department,
+    			project_guide_email_id=:project_guide_email_id,
+				project_guide_university=:project_guide_university,
 				state=:state,
 				project_title=:project_title,
 				description=:description,
@@ -1274,6 +1339,10 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 		':university' => $v['university'],
 		':city' => $v['city'],
 		':pincode' => $v['pincode'],
+		":project_guide_name" => trim($v['project_guide_name']),
+		":project_guide_department" =>trim($v['project_guide_department']),
+		":project_guide_email_id" => trim($v['project_guide_email_id']),
+		":project_guide_university" =>trim(($v['project_guide_university'])),
 		':state' => $v['all_state'],
 		':project_title' => $project_title,
 		':description' => $v['description'],
