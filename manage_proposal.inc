@@ -1151,7 +1151,6 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 		'#type' => 'textfield',
 		'#title' => t('Title of the Science and Concept Map Project'),
 		'#size' => 75,
-		'#maxlength' => 100,
 		'#required' => TRUE,
 		'#default_value' => $proposal_data->project_title
 	);
