@@ -223,6 +223,16 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		),
 		'#maxlength' => 250
 	);
+	$form['project_guide_university'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Enter University name of faculty member'),
+		'#size' => 80,
+		'#maxlength' => 200,
+		'#attributes' => array(
+			'placeholder' => 'Enter University name of faculty member'
+		),
+		
+	);
 	$form['project_guide_email_id'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
@@ -610,6 +620,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     project_guide_name,
     project_guide_department,
     project_guide_email_id,
+	project_guide_university,
     options,
     category,
     sub_category,
@@ -644,6 +655,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     :project_guide_name,
     :project_guide_department,
     :project_guide_email_id,
+	:project_guide_university,
     :options,
     :category,
     :sub_category,
@@ -667,17 +679,18 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":uid" => $user->uid,
 		":approver_uid" => 0,
 		":name_title" => $v['name_title'],
-		":contributor_name" => _df_sentence_case(trim($v['contributor_name'])),
+		":contributor_name" => trim($v['contributor_name']),
 		":contact_no" => $v['contributor_contact_no'],
-		":university" => _df_sentence_case($v['university']),
+		":university" => trim($v['university']),
 		":department" => $v['department'],
 		":city" => $v['city'],
 		":pincode" => $v['pincode'],
 		":state" => $v['all_state'],
 		":country" => $v['country'],
-		":project_guide_name" => _df_sentence_case($v['project_guide_name']),
+		":project_guide_name" => trim($v['project_guide_name']),
 		":project_guide_department" =>trim($v['project_guide_department']),
 		":project_guide_email_id" => trim($v['project_guide_email_id']),
+		":project_guide_university" =>trim(($v['project_guide_university'])),
 		":options" =>$v['options'],
 		":category" => $category,
 		":sub_category" => $sub_category,
