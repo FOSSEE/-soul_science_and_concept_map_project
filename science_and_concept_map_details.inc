@@ -69,9 +69,10 @@ function science_and_concept_map_progress_all()
 	} //$result->rowCount() == 0
 	else
 	{
+		$i = $result->rowCount();
 		$page_content .= "Work is in progress for the following science and concept map under science and concept map Project<hr>";
 		$preference_rows = array();
-		$i = 1;
+		// $i = 1;
 		while ($row = $result->fetchObject())
 		{
 			$approval_date = date("Y", $row->approval_date);
@@ -82,7 +83,7 @@ function science_and_concept_map_progress_all()
 				$row->university,
 				$approval_date
 			);
-			$i++;
+			$i--;
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',

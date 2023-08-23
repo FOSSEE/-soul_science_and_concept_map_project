@@ -734,6 +734,21 @@ function _df_list_of_states()
 	} //$states_list_data = $states_list->fetchObject()
 	return $states;
 }
+function _df_list_of_classes()
+{
+	$class_name = array(
+		0 => '-Select-'
+	);
+	$query = db_select('class_table');
+    $query->fields('class_table');
+	$query->orderBy('id', 'ASC');
+	$class_name_list = $query->execute();
+    while ($class_name_list_data = $class_name_list->fetchObject())
+      {
+        $class_name[$class_name_list_data->class_name] = $class_name_list_data->class_name;
+      }
+    return $class_name;
+}
 function _df_list_of_cities()
 {
 	$city = array(
@@ -850,7 +865,7 @@ function _soul_list_of_software_version_details($software_version_id)
     return $software_versions;
 }
 
-function _df_dir_name($project, $proposar_name)
+function _scmp_dir_name($project, $proposar_name)
 {
 	$project_title = ucname($project);
 	$proposar_name = ucname($proposar_name);
