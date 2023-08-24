@@ -346,7 +346,8 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('Title of the book'),
 		'#size' => 30,
 		'#maxlength' => 100,
-		// '#required' => TRUE
+		'#required' => TRUE,
+		'#validated' => TRUE
 	);
 	$form['preference1']['author1'] = array(
 		'#type' => 'textfield',
@@ -362,6 +363,8 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('ISBN No'),
 		'#size' => 30,
 		'#maxlength' => 25,
+		'#required' => TRUE,
+		'#validated' => TRUE
 		// '#required' => TRUE
 		// '#value' => $row1->isbn,
 		// '#disabled' => ($row1->isbn?TRUE:FALSE),
@@ -371,6 +374,8 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('Publisher & Place'),
 		'#size' => 30,
 		'#maxlength' => 50,
+		'#required' => TRUE,
+		'#validated' => TRUE
 		// '#required' => TRUE
 		//'#value' => $row1->publisher,
 	);
@@ -379,6 +384,8 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('Edition'),
 		'#size' => 4,
 		'#maxlength' => 2,
+		'#required' => TRUE,
+		'#validated' => TRUE
 		// '#required' => TRUE
 		//'#value' => $row1->edition,
 	);
@@ -387,6 +394,8 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('Year of publication'),
 		'#size' => 4,
 		'#maxlength' => 4,
+		'#required' => TRUE,
+		'#validated' => TRUE
 		// '#required' => TRUE
 		//'#value' => $row1->year,
 	);
@@ -397,7 +406,7 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#options' =>_df_list_of_classes(),
 		'#default_value' => '-select-',
 		'#tree' => TRUE,
-		// '#required' => TRUE
+		'#required' => TRUE
 	);
 	/*************************************** */
 	$form['project_title'] = array(
@@ -649,6 +658,35 @@ if (isset($_FILES['files']))
 			} //$file_name
 		} //$_FILES['files']['name'] as $file_form_name => $file_name
 	} 
+	//     
+	if ($form_state['values']['is_ncert_book'] == 'Yes') {
+		$preference1 = $form_state['values'];
+		if ($preference1['book1'] == '') {
+
+			form_set_error('book1', t('Title of the book is required.'));
+
+		}
+		if ($preference1['isbn1'] == '') {
+
+			form_set_error('isbn1', t('ISBN No is required.'));
+
+		}
+		if ($preference1['publisher1'] == '') {
+
+			form_set_error('publisher1', t('Publisher & Place is required.'));
+
+		}
+		if ($preference1['edition1'] == '') {
+
+			form_set_error('edition1', t('Edition is required.'));
+
+		}
+		if ($preference1['book_year'] == '') {
+
+			form_set_error('book_year', t('Year of publication is required.'));
+
+		}
+	}
 	return $form_state;
 }
 function science_and_concept_map_proposal_form_submit($form, &$form_state)
