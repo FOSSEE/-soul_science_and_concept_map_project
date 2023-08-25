@@ -13,12 +13,12 @@ function science_and_concept_map_completed_proposals_all()
 	//var_dump($soul_project_abstract);die;
 	if ($result->rowCount() == 0)
 	{
-		$output .= "Work has been completed for the following science and concept map. We welcome your contributions." ."<hr>";
+		$output .= "We welcome your contributions." ."<hr>";
 
 	} //$result->rowCount() == 0
 	else
 	{
-		$output .= "Work has been completed for the following science and concept map. We welcome your contributions." . "<hr>";
+		$output .= "Work has been completed for the following Science and Concept Map." . "<hr>";
 		$preference_rows = array();
 		$i = $result->rowCount();
 		while ($row = $result->fetchObject())
@@ -65,12 +65,12 @@ function science_and_concept_map_progress_all()
 	$result = $query->execute();
 	if ($result->rowCount() == 0)
 	{
-		$page_content .= "Work is in progress for the following science and concept map under science and concept map Project<hr>";
+		$page_content .= "We welcome your contributions.<hr>";
 	} //$result->rowCount() == 0
 	else
 	{
 		$i = $result->rowCount();
-		$page_content .= "Work is in progress for the following science and concept map under science and concept map Project<hr>";
+		$page_content .= "Work is in progress for the following Science and Concept Map<hr>";
 		$preference_rows = array();
 		// $i = 1;
 		while ($row = $result->fetchObject())
@@ -87,7 +87,7 @@ function science_and_concept_map_progress_all()
 		} //$row = $result->fetchObject()
 		$preference_header = array(
 			'No',
-			'science and concept map Project',
+			'Science and Concept Map Project',
 			'Contributor Name',
 			'Institute',
 			'Year'
