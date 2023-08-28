@@ -111,6 +111,11 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	global $user;
 	/* get current proposal */
 	$proposal_id = (int) arg(3);
+	$query = db_select('soul_science_and_concept_map_textbook_details');
+	$query ->fields('soul_science_and_concept_map_textbook_details');
+	$query-> condition('proposal_id', $proposal_id);
+	$book_q = $query->execute();
+	$book_data = $book_q->fetchObject();
 	$query = db_select('soul_science_and_concept_map_proposal');
 	$query->fields('soul_science_and_concept_map_proposal');
 	$query->condition('id', $proposal_id);
@@ -149,6 +154,22 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	else
 	{
 		$project_guide_email_id = $proposal_data->project_guide_email_id;
+	}
+	if ($proposal_data->project_guide_department == "NULL" || $proposal_data->project_guide_department == "")
+	{
+		$project_guide_department = "Not Entered";
+	} //$proposal_data->project_guide_email_id == NULL
+	else
+	{
+		$project_guide_department = $proposal_data->project_guide_department;
+	}
+	if ($proposal_data->project_guide_university == "NULL" || $proposal_data->project_guide_university == "")
+	{
+		$project_guide_university = "Not Entered";
+	} //$proposal_data->project_guide_email_id == NULL
+	else
+	{
+		$project_guide_university = $proposal_data->project_guide_university;
 	}
 	$query = db_select('soul_science_and_concept_map_software_version');
 	$query->fields('soul_science_and_concept_map_software_version');
@@ -238,22 +259,22 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 	$form['project_guide_name'] = array(
 		'#type' => 'item',
 		'#title' => t('Name of the faculty member of your Institution, if any, who helped you with this project '),
-		'#markup' => $proposal_data->project_guide_name
+		'#markup' => $project_guide_name
 	);
 	$form['project_guide_department'] = array(
 		'#type' => 'item',
 		'#title' => t('Department of the faculty member of your Institution, if any, who helped you with this project '),
-		'#markup' => $proposal_data->project_guide_department
+		'#markup' => $project_guide_department
 	);
 	$form['project_guide_email_id'] = array(
 		'#type' => 'item',
 		'#title' => t('Email id of the faculty member of your Institution, if any, who helped you with this project'),
-		'#markup' =>$proposal_data->project_guide_email_id
+		'#markup' =>$project_guide_email_id
 	);
 	$form['project_guide_university'] = array(
 		'#type' => 'item',
 		'#title' => t('University name of the faculty member of your Institution, if any, who helped you with this project'),
-		'#markup' =>$proposal_data->project_guide_university
+		'#markup' =>$project_guide_university
 	);
 	$form['options'] = array(
 		'#type' => 'item',
@@ -290,20 +311,42 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#markup' => $second_software,
 		'#title' => t('Second Software Version')
 	);
-	$form['project_guide_name'] = array(
+	if($proposal_data->is_ncert_book == 'Yes'){
+		$form['book_name'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->book,
+			'#title' => t('Book name')
+		);
+		$form['author_name'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->author,
+			'#title' => t('Author name')
+		);
+		$form['isbn_no'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->isbn,
+			'#title' => t('ISBN no.')
+		);
+		$form['publisher'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->publisher,
+			'#title' => t('Publisher and place')
+		);
+		$form['edition'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->edition,
+			'#title' => t('Edition of a book')
+		);
+		$form['book_year'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->book_year,
+			'#title' => t('Year of publication')
+		);
+	}
+	$form['year_of_study'] = array(
 		'#type' => 'item',
-		'#title' => t('Project guide'),
-		'#markup' => $project_guide_name
-	);
-	$form['project_guide_email_id'] = array(
-		'#type' => 'item',
-		'#title' => t('Project guide email'),
-		'#markup' => $project_guide_email_id
-	);
-	$form['project_guide_university'] = array(
-		'#type' => 'item',
-		'#title' => t('Project guide university'),
-		'#markup' => $project_guide_university
+		'#markup' => $book_data->year_of_study,
+		'#title' => t('The project is suitable for class (school education)/year of study(college education)')
 	);
 	$form['project_title'] = array(
 		'#type' => 'item',

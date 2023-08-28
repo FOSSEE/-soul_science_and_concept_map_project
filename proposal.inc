@@ -317,6 +317,98 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('Select Second Software (If applicable)'),
 		'#options' => _soul_list_of_second_software_version()
 	);
+	/************** */
+	$form['is_ncert_book'] = array(
+		'#type' => 'radios',
+		'#title' => t('Does the content of this project match any chapter  of a textbook'),
+		'#options' => array(
+			'Yes' => 'Yes',
+			'No' => 'No'
+		),
+		'#required' => TRUE
+	);
+	/**************************************** */
+	$form['preference1'] = array(
+		'#type' => 'fieldset',
+		'#title' => t('Details of Textbook'),
+		'#collapsible' => TRUE,
+		'#collapsed' => FALSE,
+		'#states' => array(
+			'visible' => array(
+				':input[name="is_ncert_book"]' => array(
+					'value' => 'Yes'
+				)
+			)
+		)
+	);
+	$form['preference1']['book1'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Title of the book'),
+		'#size' => 30,
+		'#maxlength' => 100,
+		'#required' => TRUE,
+		'#validated' => TRUE
+	);
+	$form['preference1']['author1'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Author Name'),
+		'#size' => 30,
+		'#maxlength' => 100,
+		// '#required' => TRUE
+		//'#value' => $row1->author,
+		//'#disabled' => ($row1->author?TRUE:FALSE),
+	);
+	$form['preference1']['isbn1'] = array(
+		'#type' => 'textfield',
+		'#title' => t('ISBN No'),
+		'#size' => 30,
+		'#maxlength' => 25,
+		'#required' => TRUE,
+		'#validated' => TRUE
+		// '#required' => TRUE
+		// '#value' => $row1->isbn,
+		// '#disabled' => ($row1->isbn?TRUE:FALSE),
+	);
+	$form['preference1']['publisher1'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Publisher & Place'),
+		'#size' => 30,
+		'#maxlength' => 50,
+		'#required' => TRUE,
+		'#validated' => TRUE
+		// '#required' => TRUE
+		//'#value' => $row1->publisher,
+	);
+	$form['preference1']['edition1'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Edition'),
+		'#size' => 4,
+		'#maxlength' => 2,
+		'#required' => TRUE,
+		'#validated' => TRUE
+		// '#required' => TRUE
+		//'#value' => $row1->edition,
+	);
+	$form['preference1']['book_year'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Year of publication'),
+		'#size' => 4,
+		'#maxlength' => 4,
+		'#required' => TRUE,
+		'#validated' => TRUE
+		// '#required' => TRUE
+		//'#value' => $row1->year,
+	);
+	$form['year_of_study'] = array(
+		'#type' => 'select',
+		'#title' => t('The project is suitable for class (school education)/year of study(college education) '),
+		// '#options' => '_tbc_list_of_main_categories()',
+		'#options' =>_df_list_of_classes(),
+		'#default_value' => '-select-',
+		'#tree' => TRUE,
+		'#required' => TRUE
+	);
+	/*************************************** */
 	$form['project_title'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Project Title'),
@@ -566,6 +658,35 @@ if (isset($_FILES['files']))
 			} //$file_name
 		} //$_FILES['files']['name'] as $file_form_name => $file_name
 	} 
+	//     
+	if ($form_state['values']['is_ncert_book'] == 'Yes') {
+		$preference1 = $form_state['values'];
+		if ($preference1['book1'] == '') {
+
+			form_set_error('book1', t('Title of the book is required.'));
+
+		}
+		if ($preference1['isbn1'] == '') {
+
+			form_set_error('isbn1', t('ISBN No is required.'));
+
+		}
+		if ($preference1['publisher1'] == '') {
+
+			form_set_error('publisher1', t('Publisher & Place is required.'));
+
+		}
+		if ($preference1['edition1'] == '') {
+
+			form_set_error('edition1', t('Edition is required.'));
+
+		}
+		if ($preference1['book_year'] == '') {
+
+			form_set_error('book_year', t('Year of publication is required.'));
+
+		}
+	}
 	return $form_state;
 }
 function science_and_concept_map_proposal_form_submit($form, &$form_state)
@@ -586,7 +707,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 	$options = $v['options'];
 	$category = $v['category'];
 	$software_version_no =$v['software_version_no'];
-	$directory_name = _df_dir_name($project_title, $proposar_name);
+	$directory_name = _scmp_dir_name($project_title, $proposar_name);
 	if ($category == '3D Modeling Project')
 	{
 		$sub_category = $v['sub_category'];
@@ -604,6 +725,7 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 	{
 		$other_software_version_no = 'None';
 	}
+	
 	$result = "INSERT INTO {soul_science_and_concept_map_proposal} 
     (
     uid, 
@@ -638,7 +760,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     approval_date,
     abstractfilepath,
     reference,
-    expected_date_of_completion
+    expected_date_of_completion,
+	is_ncert_book
     ) VALUES
     (
     :uid, 
@@ -673,7 +796,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     :approval_date,
     :abstractfilepath,
     :reference,
-    :expected_date_of_completion
+    :expected_date_of_completion,
+	:is_ncert_book
     )";
 	$args = array(
 		":uid" => $user->uid,
@@ -708,7 +832,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":approval_date" => 0,
 		":expected_date_of_completion" => strtotime(date($v['expected_date_of_completion'])),
 		":abstractfilepath" => "",
-		":reference" => $v['reference']
+		":reference" => $v['reference'],
+		":is_ncert_book" => $v['is_ncert_book']
 		);
 	//var_dump($args);die;
 	//var_dump($result);die;
@@ -716,6 +841,38 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		'return' => Database::RETURN_INSERT_ID
 	));
 //var_dump($args);die;
+$proposal_id = $result1;
+	/* inserting first book preference */
+	if ($form_state['values']['book1'])
+	{
+		$bk1 = trim($form_state['values']['book1']);
+		$auth1 = trim($form_state['values']['author1']);
+		$pref_id = NULL;
+		// $directory_name = _dir_name($bk1, $auth1, $pref_id);
+		$query = "INSERT INTO soul_science_and_concept_map_textbook_details
+      (proposal_id, book, author, isbn, publisher, edition, book_year, year_of_study) VALUES (:proposal_id, :book, :author, :isbn, :publisher, :edition, :book_year, :year_of_study)
+	";
+		$args = array(
+			":proposal_id" => $proposal_id,
+			":book" => trim(ucwords(strtolower($form_state['values']['book1']))),
+			":author" => trim(ucwords(strtolower($form_state['values']['author1']))),
+			":isbn" => trim($form_state['values']['isbn1']),
+			":publisher" => trim(ucwords(strtolower($form_state['values']['publisher1']))),
+			":edition" => trim($form_state['values']['edition1']),
+			":book_year" => trim($form_state['values']['book_year']),
+			":year_of_study" => trim($form_state['values']['year_of_study']),
+			// ":category" => $form_state['values']['category'],
+			// ":approval_status" => 0,
+			// ":directory_name" => $form_state['values']['dir_name1']
+		);
+		$result = db_query($query, $args, array(
+			'return' => Database::RETURN_INSERT_ID
+		));
+		if (!$result)
+		{
+			drupal_set_message(t('Error receiving your first book preference.'), 'error');
+		} //!$result
+	} //$form_state['values']['book1']
 
 	$dest_path = $directory_name . '/';
 	$dest_path1 = $root_path . $dest_path;
