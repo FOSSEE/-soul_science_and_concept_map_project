@@ -404,7 +404,7 @@ function science_and_concept_map_proposal_form($form, &$form_state, $no_js_use =
 		'#title' => t('The project is suitable for class (school education)/year of study(college education) '),
 		// '#options' => '_tbc_list_of_main_categories()',
 		'#options' =>_df_list_of_classes(),
-		'#default_value' => '-select-',
+		//'#default_value' => '-select-',
 		'#tree' => TRUE,
 		'#required' => TRUE
 	);
