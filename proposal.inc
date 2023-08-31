@@ -761,7 +761,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     abstractfilepath,
     reference,
     expected_date_of_completion,
-	is_ncert_book
+	is_ncert_book,
+	year_of_study
     ) VALUES
     (
     :uid, 
@@ -797,7 +798,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
     :abstractfilepath,
     :reference,
     :expected_date_of_completion,
-	:is_ncert_book
+	:is_ncert_book,
+	:year_of_study
     )";
 	$args = array(
 		":uid" => $user->uid,
@@ -833,7 +835,8 @@ function science_and_concept_map_proposal_form_submit($form, &$form_state)
 		":expected_date_of_completion" => strtotime(date($v['expected_date_of_completion'])),
 		":abstractfilepath" => "",
 		":reference" => $v['reference'],
-		":is_ncert_book" => $v['is_ncert_book']
+		":is_ncert_book" => $v['is_ncert_book'],
+		":year_of_study" => trim($form_state['values']['year_of_study']),
 		);
 	//var_dump($args);die;
 	//var_dump($result);die;
@@ -850,7 +853,7 @@ $proposal_id = $result1;
 		$pref_id = NULL;
 		// $directory_name = _dir_name($bk1, $auth1, $pref_id);
 		$query = "INSERT INTO soul_science_and_concept_map_textbook_details
-      (proposal_id, book, author, isbn, publisher, edition, book_year, year_of_study) VALUES (:proposal_id, :book, :author, :isbn, :publisher, :edition, :book_year, :year_of_study)
+      (proposal_id, book, author, isbn, publisher, edition, book_year) VALUES (:proposal_id, :book, :author, :isbn, :publisher, :edition, :book_year)
 	";
 		$args = array(
 			":proposal_id" => $proposal_id,
@@ -860,10 +863,6 @@ $proposal_id = $result1;
 			":publisher" => trim(ucwords(strtolower($form_state['values']['publisher1']))),
 			":edition" => trim($form_state['values']['edition1']),
 			":book_year" => trim($form_state['values']['book_year']),
-			":year_of_study" => trim($form_state['values']['year_of_study']),
-			// ":category" => $form_state['values']['category'],
-			// ":approval_status" => 0,
-			// ":directory_name" => $form_state['values']['dir_name1']
 		);
 		$result = db_query($query, $args, array(
 			'return' => Database::RETURN_INSERT_ID
