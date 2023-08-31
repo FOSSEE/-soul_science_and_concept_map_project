@@ -199,7 +199,7 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#title' => t('Student Email'),
 		'#type' => 'item',
 		'#markup' => user_load($proposal_data->uid)->mail,
-		'#title' => t('Email')
+		// '#title' => t('Email')
 	);
 	$form['contributor_contact_no'] = array(
 		'#title' => t('Contact No.'),
@@ -235,11 +235,13 @@ function science_and_concept_map_proposal_approval_form($form, &$form_state)
 		'#markup' => $proposal_data->country,
 		'#title' => t('Country')
 	);
+	if($proposal_data->country == 'others'){
 	$form['other_country'] = array(
 		'#type' => 'item',
 		'#title' => t('Other than India'),
 		'#markup' => $proposal_data->other_country,
 	);
+	}
 	$form['all_state'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->state,
@@ -529,6 +531,11 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	global $user;
 	/* get current proposal */
 	$proposal_id = (int) arg(3);
+	$query = db_select('soul_science_and_concept_map_textbook_details');
+	$query ->fields('soul_science_and_concept_map_textbook_details');
+	$query-> condition('proposal_id', $proposal_id);
+	$book_q = $query->execute();
+	$book_data = $book_q->fetchObject();
 	$query = db_select('soul_science_and_concept_map_proposal');
 	$query->fields('soul_science_and_concept_map_proposal');
 	$query->condition('id', $proposal_id);
@@ -740,6 +747,43 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 		'#title' => t('Project guide email'),
 		'#markup' => $project_guide_email_id
 	);
+	if($proposal_data->is_ncert_book == 'Yes'){
+		$form['book_name'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->book,
+			'#title' => t('Book name')
+		);
+		$form['author_name'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->author,
+			'#title' => t('Author name')
+		);
+		$form['isbn_no'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->isbn,
+			'#title' => t('ISBN no.')
+		);
+		$form['publisher'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->publisher,
+			'#title' => t('Publisher and place')
+		);
+		$form['edition'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->edition,
+			'#title' => t('Edition of a book')
+		);
+		$form['book_year'] = array(
+			'#type' => 'item',
+			'#markup' => $book_data->book_year,
+			'#title' => t('Year of publication')
+		);
+	}
+	$form['year_of_study'] = array(
+		'#type' => 'item',
+		'#markup' => $book_data->year_of_study,
+		'#title' => t('The project is suitable for class (school education)/year of study(college education)')
+	);
 	$form['project_title'] = array(
 		'#type' => 'item',
 		'#markup' => $proposal_data->project_title,
@@ -747,7 +791,7 @@ function science_and_concept_map_proposal_status_form($form, &$form_state)
 	);
 	$form['description'] = array(
 		'#type' => 'item',
-		'#markup' => $description,
+		'#markup' => $proposal_data->description,
 		'#title' => t('Description of the science and concept map Project')
 	);
 	/************************** reference link filter *******************/
@@ -895,6 +939,11 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	global $user;
 	/* get current proposal */
 	$proposal_id = (int) arg(3);
+	$query = db_select('soul_science_and_concept_map_textbook_details');
+	$query ->fields('soul_science_and_concept_map_textbook_details');
+	$query-> condition('proposal_id', $proposal_id);
+	$book_q = $query->execute();
+	$book_data = $book_q->fetchObject();
 	//$proposal_q = db_query("SELECT * FROM {soul_science_and_concept_map_proposal} WHERE id = %d", $proposal_id);
 	$query = db_select('soul_science_and_concept_map_proposal');
 	$query->fields('soul_science_and_concept_map_proposal');
@@ -1190,6 +1239,101 @@ function science_and_concept_map_proposal_edit_form($form, &$form_state)
 	// 	'#title' => t('Second Software Version'),
 	// 	'#options' => _soul_list_of_second_software_version()
 	// );
+	// if ($proposal_data->is_ncert_book == 'Yes') {
+		$form['is_ncert_book'] = array(
+			'#type' => 'radios',
+			'#title' => t('Does the content of this project match any chapter  of a textbook'),
+			'#options' => array(
+				'Yes' => 'Yes',
+				'No' => 'No'
+			),
+			'#required' => TRUE,
+			'#default_value' => $proposal_data->is_ncert_book,
+
+		);
+		$form['preference1'] = array(
+			'#type' => 'fieldset',
+			'#title' => t('Details of Textbook'),
+			'#collapsible' => TRUE,
+			'#collapsed' => FALSE,
+			'#states' => array(
+				'visible' => array(
+					':input[name="is_ncert_book"]' => array(
+						'value' => 'Yes'
+					)
+				)
+			)
+		);
+		$form['preference1']['book1'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Title of the book'),
+			'#size' => 30,
+			'#maxlength' => 100,
+			'#required' => TRUE,
+			'#validated' => TRUE,
+			'#default_value' => $book_data->book,
+
+		);
+		$form['preference1']['author1'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Author Name'),
+			'#size' => 30,
+			'#maxlength' => 100,
+			'#default_value' => $book_data->author,
+
+		);
+		$form['preference1']['isbn1'] = array(
+			'#type' => 'textfield',
+			'#title' => t('ISBN No'),
+			'#size' => 30,
+			'#maxlength' => 25,
+			'#required' => TRUE,
+			'#validated' => TRUE,
+			'#default_value' => $book_data->isbn,
+
+		);
+		$form['preference1']['publisher1'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Publisher & Place'),
+			'#size' => 30,
+			'#maxlength' => 50,
+			'#required' => TRUE,
+			'#validated' => TRUE,
+			'#default_value' => $book_data->publisher,
+
+		);
+		$form['preference1']['edition1'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Edition'),
+			'#size' => 4,
+			'#maxlength' => 2,
+			'#required' => TRUE,
+			'#validated' => TRUE,
+			'#default_value' => $book_data->edition,
+
+		);
+		$form['preference1']['book_year'] = array(
+			'#type' => 'textfield',
+			'#title' => t('Year of publication'),
+			'#size' => 4,
+			'#maxlength' => 4,
+			'#required' => TRUE,
+			'#validated' => TRUE,
+			'#default_value' => $book_data->book_year,
+
+		);
+
+	$form['year_of_study'] = array(
+		'#type' => 'select',
+		'#title' => t('The project is suitable for class (school education)/year of study(college education) '),
+		// '#options' => '_tbc_list_of_main_categories()',
+		'#options' =>_df_list_of_classes(),
+		// '#default_value' => '-select-',
+		'#tree' => TRUE,
+		'#required' => TRUE,
+		'#default_value' => $proposal_data->year_of_study,
+		
+	);
 	$form['project_title'] = array(
 		'#type' => 'textfield',
 		'#title' => t('Title of the Science and Concept Map Project'),
@@ -1333,6 +1477,9 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 		drupal_set_message(t('soul science-and-concept-map-project proposal has been deleted.'), 'status');
 		if (rrmdir_project($proposal_id) == TRUE)
 		{
+			$query_book = db_delete('soul_science_and_concept_map_textbook_details');
+			$query_book->condition('proposal_id', $proposal_id);
+			$num_book_deleted = $query_book->execute();
 			$query = db_delete('soul_science_and_concept_map_proposal');
 			$query->condition('id', $proposal_id);
 			$num_deleted = $query->execute();
@@ -1346,7 +1493,7 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 	$project_title = $v['project_title'];
 	$proposar_name = $v['name_title'] . ' ' . $v['contributor_name'];
 	$university = $v['university'];
-	$directory_names = _df_dir_name($project_title, $proposar_name);
+	$directory_names = _scmp_dir_name($project_title, $proposar_name);
 	if (DF_RenameDir($proposal_id, $directory_names))
 	{
 		$directory_name = $directory_names;
@@ -1373,7 +1520,9 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 				description=:description,
 				reference=:reference,
 				directory_name=:directory_name ,
-				abstractfilepath=:abstractfilepath
+				abstractfilepath=:abstractfilepath,
+				year_of_study=:year_of_study,
+				is_ncert_book=:is_ncert_book
 				WHERE id=:proposal_id";
 	$args = array(
 		':name_title' => $v['name_title'],
@@ -1391,8 +1540,29 @@ function science_and_concept_map_proposal_edit_form_submit($form, &$form_state)
 		':reference' => $v['reference'],
 		':directory_name' => $directory_name,
 		':abstractfilepath' => $abstractfilepath,
-		':proposal_id' => $proposal_id
+		':proposal_id' => $proposal_id,
+		":is_ncert_book" => $v['is_ncert_book'],
+		":year_of_study" => trim($v['year_of_study'])
+		
 	);
 	$result = db_query($query, $args);
+	$query_book =" UPDATE soul_science_and_concept_map_textbook_details SET
+				book=:book, 
+				author=:author,
+				isbn =:isbn, 
+				publisher=:publisher, 
+				edition=:edition, 
+				book_year=:book_year
+				WHERE proposal_id=:proposal_id
+	";
+	$args_book=array(":proposal_id" => $proposal_id,
+	":book" => trim(ucwords(strtolower($form_state['values']['book1']))),
+	":author" => trim(ucwords(strtolower($form_state['values']['author1']))),
+	":isbn" => trim($form_state['values']['isbn1']),
+	":publisher" => trim(ucwords(strtolower($form_state['values']['publisher1']))),
+	":edition" => trim($form_state['values']['edition1']),
+	":book_year" => trim($form_state['values']['book_year'])
+	);
+	$result_books= db_query($query_book, $args_book);
 	drupal_set_message(t('Proposal Updated'), 'status');
 }
