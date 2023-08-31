@@ -736,9 +736,7 @@ function _df_list_of_states()
 }
 function _df_list_of_classes()
 {
-	$class_name = array(
-		0 => '-Select-'
-	);
+	$class_name = array();
 	$query = db_select('class_table');
     $query->fields('class_table');
 	$query->orderBy('id', 'ASC');
